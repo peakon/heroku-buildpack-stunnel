@@ -3,26 +3,17 @@
 
 mkdir -p /app/vendor/stunnel/var/run/stunnel/
 
-echo "$STUNNEL_CERT" > /app/vendor/stunnel/cert.pem
-echo "$STUNNEL_CA" > /app/vendor/stunnel/cafile.pem
+echo "$STUNNEL_PSK" > /app/vendor/stunnel/psk.txt
 
 cat > /app/vendor/stunnel/stunnel.conf << EOFEOF
 foreground = yes
-
 pid = /app/vendor/stunnel/stunnel4.pid
+client = yes
 
-cert = /app/vendor/stunnel/cert.pem
-cafile = /app/vendor/stunnel/cafile.pem
+psksecrets = psk.txt
 
-verify = 2
 delay = yes
-
-options = NO_SSLv2
-options = SINGLE_ECDH_USE
-options = SINGLE_DH_USE
 socket = r:TCP_NODELAY=1
-options = NO_SSLv3
-ciphers = HIGH:!ADH:!AECDH:!LOW:!EXP:!MD5:!3DES:!SRP:!PSK:@STRENGTH
 EOFEOF
 
 for URL in $STUNNEL_URLS
@@ -45,7 +36,6 @@ do
   cat >> /app/vendor/stunnel/stunnel.conf << EOFEOF
 
 [$URL]
-client = yes
 accept = 127.0.0.1:$URI_PORT
 connect = $URI_HOST:$URI_PORT
 retry = yes
