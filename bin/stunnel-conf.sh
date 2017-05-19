@@ -37,11 +37,12 @@ do
   URI_PASS=${URI[2]}
   URI_HOST=${URI[3]}
   URI_PORT=${URI[4]}
+  URI_PATH=${URI[5]}
 
   LOCAL_STUNNEL_PORT=2${URI_PORT}
 
   echo "Setting ${URL}_STUNNEL config var"
-  export ${URL}_STUNNEL=$URI_SCHEME://$URI_USER:$URI_PASS@127.0.0.1:$LOCAL_STUNNEL_PORT
+  export ${URL}_STUNNEL=$URI_SCHEME://$URI_USER:$URI_PASS@127.0.0.1:$LOCAL_STUNNEL_PORT$URI_PATH
 
   cat >> /app/vendor/stunnel/stunnel.conf << EOFEOF
 
