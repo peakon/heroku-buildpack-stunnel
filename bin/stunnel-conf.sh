@@ -3,14 +3,14 @@
 
 mkdir -p /app/vendor/stunnel/var/run/stunnel/
 
-echo "$STUNNEL_PSK" > /app/vendor/stunnel/psk.txt
+echo "$STUNNEL_PSK" > /app/vendor/stunnel/psk
 
 cat > /app/vendor/stunnel/stunnel.conf << EOFEOF
 foreground = yes
 pid = /app/vendor/stunnel/stunnel4.pid
 client = yes
 
-psksecrets = psk.txt
+psksecrets = /app/vendor/stunnel/psk
 
 delay = yes
 socket = r:TCP_NODELAY=1
