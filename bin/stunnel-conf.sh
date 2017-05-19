@@ -10,10 +10,13 @@ foreground = yes
 pid = /app/vendor/stunnel/stunnel4.pid
 client = yes
 
+ciphers = PSK
 psksecrets = /app/vendor/stunnel/psk
 
 delay = yes
 socket = r:TCP_NODELAY=1
+TIMEOUTidle = 172800
+
 EOFEOF
 
 for URL in $STUNNEL_URLS
