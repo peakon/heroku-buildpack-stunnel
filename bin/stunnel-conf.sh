@@ -39,16 +39,14 @@ do
   URI_PORT=${URI[4]}
   URI_PATH=${URI[5]}
 
-  LOCAL_STUNNEL_PORT=2${URI_PORT}
-
   echo "Setting ${URL}_STUNNEL config var"
-  export ${URL}_STUNNEL=$URI_SCHEME://$URI_USER:$URI_PASS@127.0.0.1:$LOCAL_STUNNEL_PORT$URI_PATH
+  export ${URL}_STUNNEL=$URI_SCHEME://$URI_USER:$URI_PASS@127.0.0.1:$URI_PORT$URI_PATH
 
   cat >> /app/vendor/stunnel/stunnel.conf << EOFEOF
 
 [$URL]
 client = yes
-accept = 127.0.0.1:$LOCAL_STUNNEL_PORT
+accept = 127.0.0.1:$URI_PORT
 connect = $URI_HOST:$URI_PORT
 retry = yes
 EOFEOF
