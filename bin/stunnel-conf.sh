@@ -14,6 +14,7 @@ ciphers = PSK
 psksecrets = /app/vendor/stunnel/psk
 
 delay = yes
+retry = yes
 socket = r:TCP_NODELAY=1
 
 TIMEOUTconnect = 5
@@ -36,16 +37,18 @@ do
   URI_PORT=${URI[4]}
   URI_PATH=${URI[5]}
 
-  echo "Setting ${URL}_STUNNEL config var"
-  export ${URL}_STUNNEL=$URI_SCHEME://$URI_USER:$URI_PASS@127.0.0.1:$URI_PORT$URI_PATH
-
   cat >> /app/vendor/stunnel/stunnel.conf << EOFEOF
 
 [$URL]
 accept = 127.0.0.1:$URI_PORT
-connect = $URI_HOST:$URI_PORT
-retry = yes
 EOFEOF
+
+  for SERVER in $STUNNEL_SERVERS
+  do
+    cat >> /app/vendor/stunnel/stunnel.conf << EOFEOF
+connect = $SERVER:$URI_PORT
+EOFEOF
+  done
 
 done
 

@@ -30,12 +30,6 @@ config-gen() {
   at config-gen-start
   source bin/stunnel-conf.sh
   at config-gen-end
-
-  # Overwrite config vars with stunnel targets
-  for URL in $STUNNEL_URLS; do
-    at "config-gen-override $URL"
-    eval "$URL=\$${URL}_STUNNEL"
-  done
 }
 
 aux-start() {
