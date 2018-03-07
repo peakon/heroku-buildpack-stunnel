@@ -15,7 +15,6 @@ psksecrets = /app/vendor/stunnel/psk
 
 delay = yes
 retry = yes
-socket = r:TCP_NODELAY=1
 
 TIMEOUTconnect = 5
 TIMEOUTbusy = 300
