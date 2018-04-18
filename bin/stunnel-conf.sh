@@ -30,15 +30,12 @@ for URL in $STUNNEL_URLS
 do
 
   eval URL_VALUE=\$$URL
-  PARTS=$(echo $URL_VALUE | perl -lne 'print "$1 $2 $3 $4 $5 $6 $7" if /^([^:]+):\/\/([^:]+):([^@]+)@(.*?):(.*?)(\/(.*?)(\\?.*))?$/')
+  PARTS=$(echo $URL_VALUE | perl -lne 'print "$1 $3 $4" if /^([^:]+):\/\/([^:]+:[^@]+@)?(.*?):(.*?)(\/(.*?)(\\?.*))?$/')
   URI=( $PARTS )
 
   URI_SCHEME=${URI[0]}
-  URI_USER=${URI[1]}
-  URI_PASS=${URI[2]}
-  URI_HOST=${URI[3]}
-  URI_PORT=${URI[4]}
-  URI_PATH=${URI[5]}
+  URI_HOST=${URI[1]}
+  URI_PORT=${URI[2]}
 
   cat >> /app/vendor/stunnel/stunnel.conf << EOFEOF
 
