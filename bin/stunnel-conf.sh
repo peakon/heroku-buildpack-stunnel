@@ -22,6 +22,10 @@ TIMEOUTidle = 172800
 
 EOFEOF
 
+
+# replace non-breaking space chars with real spaces
+# (this often happens when setting the variable in Heroku dashboard)
+STUNNEL_URLS=${STUNNEL_URLS// / }
 for URL in $STUNNEL_URLS
 do
 
