@@ -7,6 +7,7 @@ echo "$STUNNEL_PSK" > /app/vendor/stunnel/psk
 
 cat > /app/vendor/stunnel/stunnel.conf << EOFEOF
 foreground = yes
+debug = warning
 pid = /app/vendor/stunnel/stunnel4.pid
 client = yes
 
